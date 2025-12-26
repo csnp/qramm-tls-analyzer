@@ -25,15 +25,15 @@ type Scanner struct {
 
 // Config holds scanner configuration.
 type Config struct {
-	Timeout         time.Duration
-	ConnectTimeout  time.Duration
-	Concurrency     int
-	SkipCertVerify  bool
-	SNI             string
-	CheckVulns      bool
-	CheckQuantum    bool
-	MinTLSVersion   uint16
-	MaxTLSVersion   uint16
+	Timeout        time.Duration
+	ConnectTimeout time.Duration
+	Concurrency    int
+	SkipCertVerify bool
+	SNI            string
+	CheckVulns     bool
+	CheckQuantum   bool
+	MinTLSVersion  uint16
+	MaxTLSVersion  uint16
 }
 
 // DefaultConfig returns sensible defaults.

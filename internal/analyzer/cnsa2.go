@@ -19,68 +19,68 @@ func NewCNSA2Analyzer() *CNSA2Analyzer {
 var (
 	// Approved algorithms for CNSA 2.0
 	CNSA2ApprovedKeyExchange = map[string]bool{
-		"ML-KEM-768":           true,
-		"ML-KEM-1024":          true,
-		"X25519MLKEM768":       true,
-		"SecP256r1MLKEM768":    true,
-		"SecP384r1MLKEM1024":   true,
+		"ML-KEM-768":         true,
+		"ML-KEM-1024":        true,
+		"X25519MLKEM768":     true,
+		"SecP256r1MLKEM768":  true,
+		"SecP384r1MLKEM1024": true,
 	}
 
 	CNSA2ApprovedSignatures = map[string]bool{
-		"ML-DSA-65":            true,
-		"ML-DSA-87":            true,
-		"SLH-DSA-SHA2-128s":    true,
-		"SLH-DSA-SHA2-128f":    true,
-		"SLH-DSA-SHA2-192s":    true,
-		"SLH-DSA-SHA2-192f":    true,
-		"SLH-DSA-SHA2-256s":    true,
-		"SLH-DSA-SHA2-256f":    true,
-		"SLH-DSA-SHAKE-128s":   true,
-		"SLH-DSA-SHAKE-128f":   true,
-		"SLH-DSA-SHAKE-192s":   true,
-		"SLH-DSA-SHAKE-192f":   true,
-		"SLH-DSA-SHAKE-256s":   true,
-		"SLH-DSA-SHAKE-256f":   true,
+		"ML-DSA-65":          true,
+		"ML-DSA-87":          true,
+		"SLH-DSA-SHA2-128s":  true,
+		"SLH-DSA-SHA2-128f":  true,
+		"SLH-DSA-SHA2-192s":  true,
+		"SLH-DSA-SHA2-192f":  true,
+		"SLH-DSA-SHA2-256s":  true,
+		"SLH-DSA-SHA2-256f":  true,
+		"SLH-DSA-SHAKE-128s": true,
+		"SLH-DSA-SHAKE-128f": true,
+		"SLH-DSA-SHAKE-192s": true,
+		"SLH-DSA-SHAKE-192f": true,
+		"SLH-DSA-SHAKE-256s": true,
+		"SLH-DSA-SHAKE-256f": true,
 	}
 
 	CNSA2ApprovedSymmetric = map[string]bool{
-		"AES-256":      true,
-		"AES-256-GCM":  true,
+		"AES-256":     true,
+		"AES-256-GCM": true,
 	}
 
 	CNSA2ApprovedHash = map[string]bool{
-		"SHA-384":      true,
-		"SHA-512":      true,
-		"SHA3-384":     true,
-		"SHA3-512":     true,
+		"SHA-384":  true,
+		"SHA-512":  true,
+		"SHA3-384": true,
+		"SHA3-512": true,
 	}
 
 	// Transitional algorithms (allowed until deadline)
 	CNSA2Transitional = map[string]string{
-		"RSA-3072":     "2030",
-		"RSA-4096":     "2030",
-		"ECDSA-P384":   "2030",
-		"ECDH-P384":    "2030",
-		"X25519":       "2030", // Only in hybrid mode
-		"SHA-256":      "2030",
+		"RSA-3072":   "2030",
+		"RSA-4096":   "2030",
+		"ECDSA-P384": "2030",
+		"ECDH-P384":  "2030",
+		"X25519":     "2030", // Only in hybrid mode
+		"SHA-256":    "2030",
 	}
 
 	// Deprecated algorithms (should be phased out)
 	CNSA2Deprecated = map[string]string{
-		"RSA-2048":     "Immediately",
-		"ECDSA-P256":   "2027",
-		"ECDH-P256":    "2027",
-		"SHA-1":        "Immediately",
-		"3DES":         "Immediately",
-		"RC4":          "Immediately",
+		"RSA-2048":   "Immediately",
+		"ECDSA-P256": "2027",
+		"ECDH-P256":  "2027",
+		"SHA-1":      "Immediately",
+		"3DES":       "Immediately",
+		"RC4":        "Immediately",
 	}
 )
 
 // Milestones defines CNSA 2.0 timeline.
 var CNSA2Milestones = []struct {
-	Name        string
-	Deadline    time.Time
-	Description string
+	Name         string
+	Deadline     time.Time
+	Description  string
 	Requirements []string
 }{
 	{
@@ -416,19 +416,19 @@ func (a *CNSA2Analyzer) calculateTimelineScore(timeline *types.CNSA2Timeline) in
 	score := 0
 
 	weights := map[string]int{
-		"Preparation Phase":     10,
-		"New NSS Systems":       30,
-		"TLS 1.3 Required":      25,
-		"Legacy System Update":  20,
-		"Full PQC Transition":   15,
+		"Preparation Phase":    10,
+		"New NSS Systems":      30,
+		"TLS 1.3 Required":     25,
+		"Legacy System Update": 20,
+		"Full PQC Transition":  15,
 	}
 
 	statusScores := map[string]int{
-		"compliant":       100,
-		"partial":         60,
-		"in-progress":     40,
-		"non-compliant":   0,
-		"not-applicable":  100, // Future requirements don't penalize
+		"compliant":      100,
+		"partial":        60,
+		"in-progress":    40,
+		"non-compliant":  0,
+		"not-applicable": 100, // Future requirements don't penalize
 	}
 
 	for _, m := range timeline.Milestones {

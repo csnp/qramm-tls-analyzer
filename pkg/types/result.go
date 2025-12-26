@@ -51,7 +51,7 @@ func (d Duration) MarshalJSON() ([]byte, error) {
 
 // Protocol represents a TLS protocol version.
 type Protocol struct {
-	Version   string `json:"version"`   // e.g., "TLS 1.3", "TLS 1.2"
+	Version   string `json:"version"` // e.g., "TLS 1.3", "TLS 1.2"
 	Supported bool   `json:"supported"`
 	Preferred bool   `json:"preferred,omitempty"`
 }
@@ -74,33 +74,33 @@ type CipherSuite struct {
 
 // KeyExchange represents a key exchange mechanism.
 type KeyExchange struct {
-	Name           string `json:"name"`
-	Type           string `json:"type"` // "classical", "hybrid", "pqc"
-	Curve          string `json:"curve,omitempty"`
-	Bits           int    `json:"bits,omitempty"`
-	QuantumSafe    bool   `json:"quantumSafe"`
-	PQCAlgorithm   string `json:"pqcAlgorithm,omitempty"`   // e.g., "ML-KEM-768"
+	Name            string `json:"name"`
+	Type            string `json:"type"` // "classical", "hybrid", "pqc"
+	Curve           string `json:"curve,omitempty"`
+	Bits            int    `json:"bits,omitempty"`
+	QuantumSafe     bool   `json:"quantumSafe"`
+	PQCAlgorithm    string `json:"pqcAlgorithm,omitempty"`    // e.g., "ML-KEM-768"
 	HybridClassical string `json:"hybridClassical,omitempty"` // e.g., "X25519"
 }
 
 // Certificate represents an X.509 certificate.
 type Certificate struct {
-	Subject            string    `json:"subject"`
-	Issuer             string    `json:"issuer"`
-	SerialNumber       string    `json:"serialNumber"`
-	NotBefore          time.Time `json:"notBefore"`
-	NotAfter           time.Time `json:"notAfter"`
-	SignatureAlgorithm string    `json:"signatureAlgorithm"`
-	PublicKeyAlgorithm string    `json:"publicKeyAlgorithm"`
-	PublicKeyBits      int       `json:"publicKeyBits"`
-	KeyUsage           []string  `json:"keyUsage,omitempty"`
-	ExtKeyUsage        []string  `json:"extKeyUsage,omitempty"`
-	SANs               []string  `json:"subjectAltNames,omitempty"`
-	IsCA               bool      `json:"isCA"`
-	IsSelfSigned       bool      `json:"isSelfSigned"`
-	QuantumSafe        bool      `json:"quantumSafe"`
-	DaysUntilExpiry    int       `json:"daysUntilExpiry"`
-	Expired            bool      `json:"expired"`
+	Subject            string       `json:"subject"`
+	Issuer             string       `json:"issuer"`
+	SerialNumber       string       `json:"serialNumber"`
+	NotBefore          time.Time    `json:"notBefore"`
+	NotAfter           time.Time    `json:"notAfter"`
+	SignatureAlgorithm string       `json:"signatureAlgorithm"`
+	PublicKeyAlgorithm string       `json:"publicKeyAlgorithm"`
+	PublicKeyBits      int          `json:"publicKeyBits"`
+	KeyUsage           []string     `json:"keyUsage,omitempty"`
+	ExtKeyUsage        []string     `json:"extKeyUsage,omitempty"`
+	SANs               []string     `json:"subjectAltNames,omitempty"`
+	IsCA               bool         `json:"isCA"`
+	IsSelfSigned       bool         `json:"isSelfSigned"`
+	QuantumSafe        bool         `json:"quantumSafe"`
+	DaysUntilExpiry    int          `json:"daysUntilExpiry"`
+	Expired            bool         `json:"expired"`
 	Fingerprints       Fingerprints `json:"fingerprints"`
 }
 
@@ -134,15 +134,15 @@ const (
 
 // QuantumRiskAssessment provides quantum-specific risk analysis.
 type QuantumRiskAssessment struct {
-	Score           int      `json:"score"`           // 0-100, higher = more quantum-ready
-	Level           RiskLevel `json:"level"`          // CRITICAL, HIGH, MEDIUM, LOW
-	KeyExchangeRisk string   `json:"keyExchangeRisk"` // Risk from key exchange
-	CertificateRisk string   `json:"certificateRisk"` // Risk from certificate
-	HybridPQCReady  bool     `json:"hybridPqcReady"`  // Supports hybrid PQC
-	FullPQCReady    bool     `json:"fullPqcReady"`    // Supports full PQC
-	HNDLRisk        string   `json:"hndlRisk"`        // Harvest Now, Decrypt Later risk
-	TimeToAction    string   `json:"timeToAction"`    // Recommended action timeline
-	Details         []string `json:"details"`
+	Score           int       `json:"score"`           // 0-100, higher = more quantum-ready
+	Level           RiskLevel `json:"level"`           // CRITICAL, HIGH, MEDIUM, LOW
+	KeyExchangeRisk string    `json:"keyExchangeRisk"` // Risk from key exchange
+	CertificateRisk string    `json:"certificateRisk"` // Risk from certificate
+	HybridPQCReady  bool      `json:"hybridPqcReady"`  // Supports hybrid PQC
+	FullPQCReady    bool      `json:"fullPqcReady"`    // Supports full PQC
+	HNDLRisk        string    `json:"hndlRisk"`        // Harvest Now, Decrypt Later risk
+	TimeToAction    string    `json:"timeToAction"`    // Recommended action timeline
+	Details         []string  `json:"details"`
 }
 
 // RiskLevel represents quantum risk severity.
@@ -157,10 +157,10 @@ const (
 
 // Grade represents the overall TLS configuration grade.
 type Grade struct {
-	Letter      string `json:"letter"`      // A+, A, B, C, D, F
-	Score       int    `json:"score"`       // 0-100
-	QuantumGrade string `json:"quantumGrade"` // Separate quantum readiness grade
-	Factors     []GradeFactor `json:"factors"`
+	Letter       string        `json:"letter"`       // A+, A, B, C, D, F
+	Score        int           `json:"score"`        // 0-100
+	QuantumGrade string        `json:"quantumGrade"` // Separate quantum readiness grade
+	Factors      []GradeFactor `json:"factors"`
 }
 
 // GradeFactor explains a component of the grade.

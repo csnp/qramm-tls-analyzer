@@ -27,21 +27,21 @@ var (
 
 // CLI flags
 var (
-	outputFormat  string
-	outputFile    string
-	timeout       int
-	noColor       bool
-	jsonCompact   bool
-	port          int
-	sni           string
-	skipVulns     bool
-	skipQuantum   bool
-	skipCNSA2     bool
-	policyName    string
-	policyFile    string
-	targetsFile   string
-	concurrency   int
-	showPolicies  bool
+	outputFormat string
+	outputFile   string
+	timeout      int
+	noColor      bool
+	jsonCompact  bool
+	port         int
+	sni          string
+	skipVulns    bool
+	skipQuantum  bool
+	skipCNSA2    bool
+	policyName   string
+	policyFile   string
+	targetsFile  string
+	concurrency  int
+	showPolicies bool
 )
 
 func main() {

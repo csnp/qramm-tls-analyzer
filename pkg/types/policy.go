@@ -126,11 +126,11 @@ type PolicyViolation struct {
 
 // PolicyResult contains the results of policy evaluation.
 type PolicyResult struct {
-	PolicyName  string            `json:"policyName"`
-	Compliant   bool              `json:"compliant"`
-	Score       int               `json:"score"`
-	Violations  []PolicyViolation `json:"violations"`
-	Warnings    []PolicyViolation `json:"warnings"`
+	PolicyName string            `json:"policyName"`
+	Compliant  bool              `json:"compliant"`
+	Score      int               `json:"score"`
+	Violations []PolicyViolation `json:"violations"`
+	Warnings   []PolicyViolation `json:"warnings"`
 }
 
 // DefaultPolicies contains built-in policies.
@@ -259,10 +259,10 @@ var DefaultPolicies = map[string]Policy{
 				RequireForwardSecrecy: true,
 			},
 			Certificate: CertificateRules{
-				MinValidityDays:                30,
-				MinRSAKeySize:                  4096,
-				MinECCKeySize:                  384,
-				RequiredSignatureAlgorithms:    []string{"ML-DSA-65", "ML-DSA-87", "SLH-DSA"},
+				MinValidityDays:             30,
+				MinRSAKeySize:               4096,
+				MinECCKeySize:               384,
+				RequiredSignatureAlgorithms: []string{"ML-DSA-65", "ML-DSA-87", "SLH-DSA"},
 			},
 			Quantum: QuantumRules{
 				RequireHybridKeyExchange:      true,

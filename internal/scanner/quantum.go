@@ -15,15 +15,15 @@ var QuantumVulnerableAlgorithms = map[string]string{
 
 // QuantumSafeAlgorithms lists post-quantum safe algorithms.
 var QuantumSafeAlgorithms = map[string]string{
-	"ML-KEM":       "NIST FIPS 203 - Key Encapsulation",
-	"ML-DSA":       "NIST FIPS 204 - Digital Signatures",
-	"SLH-DSA":      "NIST FIPS 205 - Stateless Hash-Based Signatures",
-	"AES-256":      "Symmetric - Grover's algorithm requires 2^128 operations",
-	"AES-128":      "Symmetric - Grover's algorithm requires 2^64 operations (marginal)",
-	"ChaCha20":     "Symmetric - Quantum resistant",
-	"SHA-256":      "Hash - Grover's provides only quadratic speedup",
-	"SHA-384":      "Hash - Grover's provides only quadratic speedup",
-	"SHA-512":      "Hash - Grover's provides only quadratic speedup",
+	"ML-KEM":   "NIST FIPS 203 - Key Encapsulation",
+	"ML-DSA":   "NIST FIPS 204 - Digital Signatures",
+	"SLH-DSA":  "NIST FIPS 205 - Stateless Hash-Based Signatures",
+	"AES-256":  "Symmetric - Grover's algorithm requires 2^128 operations",
+	"AES-128":  "Symmetric - Grover's algorithm requires 2^64 operations (marginal)",
+	"ChaCha20": "Symmetric - Quantum resistant",
+	"SHA-256":  "Hash - Grover's provides only quadratic speedup",
+	"SHA-384":  "Hash - Grover's provides only quadratic speedup",
+	"SHA-512":  "Hash - Grover's provides only quadratic speedup",
 }
 
 // HybridKeyExchanges maps hybrid PQC key exchange names to components.

@@ -35,13 +35,13 @@ type sarifDriver struct {
 }
 
 type sarifRule struct {
-	ID               string           `json:"id"`
-	Name             string           `json:"name"`
-	ShortDescription sarifMessage     `json:"shortDescription"`
-	FullDescription  sarifMessage     `json:"fullDescription,omitempty"`
-	Help             sarifMessage     `json:"help,omitempty"`
-	DefaultConfig    sarifRuleConfig  `json:"defaultConfiguration"`
-	Properties       sarifProperties  `json:"properties,omitempty"`
+	ID               string          `json:"id"`
+	Name             string          `json:"name"`
+	ShortDescription sarifMessage    `json:"shortDescription"`
+	FullDescription  sarifMessage    `json:"fullDescription,omitempty"`
+	Help             sarifMessage    `json:"help,omitempty"`
+	DefaultConfig    sarifRuleConfig `json:"defaultConfiguration"`
+	Properties       sarifProperties `json:"properties,omitempty"`
 }
 
 type sarifRuleConfig struct {

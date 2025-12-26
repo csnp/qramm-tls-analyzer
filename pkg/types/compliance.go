@@ -6,13 +6,13 @@ import "time"
 type ComplianceFramework string
 
 const (
-	FrameworkCNSA2    ComplianceFramework = "CNSA 2.0"
-	FrameworkNIST     ComplianceFramework = "NIST 800-53"
-	FrameworkCMMC     ComplianceFramework = "CMMC"
-	FrameworkPCIDSS   ComplianceFramework = "PCI-DSS"
-	FrameworkFedRAMP  ComplianceFramework = "FedRAMP"
-	FrameworkHIPAA    ComplianceFramework = "HIPAA"
-	FrameworkSOC2     ComplianceFramework = "SOC 2"
+	FrameworkCNSA2   ComplianceFramework = "CNSA 2.0"
+	FrameworkNIST    ComplianceFramework = "NIST 800-53"
+	FrameworkCMMC    ComplianceFramework = "CMMC"
+	FrameworkPCIDSS  ComplianceFramework = "PCI-DSS"
+	FrameworkFedRAMP ComplianceFramework = "FedRAMP"
+	FrameworkHIPAA   ComplianceFramework = "HIPAA"
+	FrameworkSOC2    ComplianceFramework = "SOC 2"
 )
 
 // CNSA2Timeline represents NSA's Commercial National Security Algorithm Suite 2.0 milestones.

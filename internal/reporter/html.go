@@ -18,12 +18,12 @@ type HTMLReporter struct {
 // Report writes the scan result as HTML.
 func (r *HTMLReporter) Report(w io.Writer, result *types.ScanResult) error {
 	tmpl, err := template.New("report").Funcs(template.FuncMap{
-		"gradeClass":   gradeClass,
+		"gradeClass":    gradeClass,
 		"severityClass": severityClass,
-		"riskClass":    riskClass,
-		"formatTime":   formatTime,
-		"progressBar":  progressBar,
-		"statusIcon":   statusIcon,
+		"riskClass":     riskClass,
+		"formatTime":    formatTime,
+		"progressBar":   progressBar,
+		"statusIcon":    statusIcon,
 	}).Parse(htmlTemplate)
 	if err != nil {
 		return fmt.Errorf("failed to parse template: %w", err)

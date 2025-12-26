@@ -251,7 +251,7 @@ func quantumScoreToLetter(score int) string {
 	case score >= 80:
 		return "Q+" // Quantum ready
 	case score >= 50:
-		return "Q"  // Partially quantum ready
+		return "Q" // Partially quantum ready
 	case score >= 20:
 		return "Q-" // Limited quantum protection
 	default:

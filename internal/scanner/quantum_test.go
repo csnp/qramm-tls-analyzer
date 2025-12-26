@@ -82,10 +82,10 @@ func TestAssessQuantumRisk(t *testing.T) {
 			result: &types.ScanResult{
 				KeyExchanges: []types.KeyExchange{
 					{
-						Name:           "X25519MLKEM768",
-						Type:           "hybrid",
+						Name:            "X25519MLKEM768",
+						Type:            "hybrid",
 						HybridClassical: "X25519",
-						PQCAlgorithm:   "ML-KEM-768",
+						PQCAlgorithm:    "ML-KEM-768",
 					},
 				},
 				Certificate: &types.Certificate{

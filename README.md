@@ -90,20 +90,53 @@ tlsanalyzer example.com --format cbom -o crypto-inventory.json
 
 ## Installation
 
-### From Source
+### macOS / Linux (Recommended)
+
+Copy and paste this entire block into your terminal:
 
 ```bash
-# Requires Go 1.21+
+# Download, build, and install (requires Go 1.21+)
 git clone https://github.com/csnp/qramm-tls-analyzer.git
 cd qramm-tls-analyzer
 go build -o tlsanalyzer ./cmd/tlsanalyzer
+sudo mv tlsanalyzer /usr/local/bin/
+cd .. && rm -rf qramm-tls-analyzer
 ```
 
-### Using Go Install
+Verify it works:
+```bash
+tlsanalyzer --version
+```
+
+### macOS / Linux (Alternative - No sudo)
+
+If you don't have sudo access:
 
 ```bash
-go install github.com/csnp/qramm-tls-analyzer/cmd/tlsanalyzer@latest
+git clone https://github.com/csnp/qramm-tls-analyzer.git
+cd qramm-tls-analyzer
+go build -o tlsanalyzer ./cmd/tlsanalyzer
+mkdir -p ~/bin && mv tlsanalyzer ~/bin/
+echo 'export PATH="$HOME/bin:$PATH"' >> ~/.zshrc  # or ~/.bashrc for bash
+source ~/.zshrc
 ```
+
+### Windows
+
+```powershell
+git clone https://github.com/csnp/qramm-tls-analyzer.git
+cd qramm-tls-analyzer
+go build -o tlsanalyzer.exe ./cmd/tlsanalyzer
+# Move tlsanalyzer.exe to a folder in your PATH, or run from current directory
+```
+
+### Don't have Go installed?
+
+**macOS:** `brew install go`
+
+**Ubuntu/Debian:** `sudo apt install golang-go`
+
+**Windows:** Download from https://go.dev/dl/
 
 ### Pre-built Binaries
 

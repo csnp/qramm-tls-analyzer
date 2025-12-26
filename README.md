@@ -43,21 +43,22 @@ Part of the [QRAMM (Quantum Readiness Assurance Maturity Model)](https://qramm.o
 ## Quick Start
 
 ```bash
-# Install
-go install github.com/csnp/qramm-tls-analyzer/cmd/tlsanalyzer@latest
+# Clone and build (requires Go 1.21+)
+git clone https://github.com/csnp/qramm-tls-analyzer.git
+cd qramm-tls-analyzer
+go build -o tlsanalyzer ./cmd/tlsanalyzer
 
-# Scan a target
-tlsanalyzer example.com
+# Scan a domain you own or have permission to test
+./tlsanalyzer yourdomain.com
 
-# Evaluate against CNSA 2.0 policy
-tlsanalyzer example.com --policy cnsa-2.0-2027
-
-# Generate HTML report
-tlsanalyzer example.com --format html -o report.html
-
-# Generate cryptographic inventory (CBOM)
-tlsanalyzer example.com --format cbom -o crypto-inventory.json
+# Expected output: Security grade, quantum risk score, CNSA 2.0 timeline
+# - TLS Security: A-F grade with score breakdown
+# - Quantum Ready: QV (vulnerable) to Q+ (full PQC)
+# - Protocol/cipher/certificate analysis
+# - Remediation guidance
 ```
+
+**Don't have Go?** Download pre-built binaries from [Releases](https://github.com/csnp/qramm-tls-analyzer/releases).
 
 ## Features
 
@@ -88,156 +89,51 @@ tlsanalyzer example.com --format cbom -o crypto-inventory.json
 | **Multiple Output Formats** | Text, JSON, SARIF, CycloneDX CBOM, HTML |
 | **Batch Scanning** | Scan multiple targets with concurrency control |
 
-## Installation
-
-### Option 1: Download Binary (Easiest)
-
-Download the latest release for your platform from [**Releases**](https://github.com/csnp/qramm-tls-analyzer/releases):
-
-| Platform | File |
-|----------|------|
-| macOS (Apple Silicon) | `tlsanalyzer-darwin-arm64.tar.gz` |
-| macOS (Intel) | `tlsanalyzer-darwin-amd64.tar.gz` |
-| Linux | `tlsanalyzer-linux-amd64.tar.gz` |
-| Windows | `tlsanalyzer-windows-amd64.zip` |
-
-Then extract and run:
-
-```bash
-# macOS/Linux
-tar -xzf tlsanalyzer-*.tar.gz
-sudo mv tlsanalyzer /usr/local/bin/
-tlsanalyzer --version
-```
-
-### Option 2: Build from Source
-
-**Requires Go 1.21+** ([install Go](https://go.dev/dl/))
-
-Copy and paste this entire block:
-
-```bash
-git clone https://github.com/csnp/qramm-tls-analyzer.git
-cd qramm-tls-analyzer
-go build -o tlsanalyzer ./cmd/tlsanalyzer
-sudo mv tlsanalyzer /usr/local/bin/
-cd .. && rm -rf qramm-tls-analyzer
-tlsanalyzer --version
-```
-
-<details>
-<summary>Alternative: Install without sudo</summary>
-
-```bash
-git clone https://github.com/csnp/qramm-tls-analyzer.git
-cd qramm-tls-analyzer
-go build -o tlsanalyzer ./cmd/tlsanalyzer
-mkdir -p ~/bin && mv tlsanalyzer ~/bin/
-echo 'export PATH="$HOME/bin:$PATH"' >> ~/.zshrc
-source ~/.zshrc
-```
-</details>
-
-<details>
-<summary>Windows (PowerShell)</summary>
-
-```powershell
-git clone https://github.com/csnp/qramm-tls-analyzer.git
-cd qramm-tls-analyzer
-go build -o tlsanalyzer.exe ./cmd/tlsanalyzer
-# Move tlsanalyzer.exe to a folder in your PATH
-```
-</details>
-
 ## Usage
-
-### Basic Scan
-
-```bash
-# Scan a single target
-tlsanalyzer example.com
-
-# Specify port
-tlsanalyzer example.com:8443
-
-# Custom timeout
-tlsanalyzer example.com --timeout 60
-
-# Custom SNI
-tlsanalyzer 192.168.1.1 --sni example.com
-```
 
 ### Output Formats
 
 ```bash
-# Human-readable text (default)
-tlsanalyzer example.com
-
-# JSON output
-tlsanalyzer example.com --format json
-
-# Compact JSON (no indentation)
-tlsanalyzer example.com --format json --compact
-
-# SARIF (for GitHub/Azure DevOps security integration)
-tlsanalyzer example.com --format sarif -o results.sarif
-
-# CycloneDX CBOM (Cryptographic Bill of Materials)
-tlsanalyzer example.com --format cbom -o crypto-inventory.json
-
-# HTML report (standalone, shareable)
-tlsanalyzer example.com --format html -o report.html
+./tlsanalyzer yourdomain.com                              # Human-readable text (default)
+./tlsanalyzer yourdomain.com --format json                # JSON output
+./tlsanalyzer yourdomain.com --format html -o report.html # Standalone HTML report
+./tlsanalyzer yourdomain.com --format cbom -o cbom.json   # CycloneDX CBOM
+./tlsanalyzer yourdomain.com --format sarif -o scan.sarif # SARIF for GitHub Security
 ```
 
 ### Policy Evaluation
 
 ```bash
-# List available policies
-tlsanalyzer policies
-
-# Evaluate against built-in policy
-tlsanalyzer example.com --policy cnsa-2.0-2027
-
-# Use custom policy file
-tlsanalyzer example.com --policy-file custom-policy.yaml
+./tlsanalyzer policies                                    # List available policies
+./tlsanalyzer yourdomain.com --policy cnsa-2.0-2027       # CNSA 2.0 compliance check
+./tlsanalyzer yourdomain.com --policy-file custom.yaml    # Custom policy file
 ```
 
 ### Batch Scanning
 
 ```bash
-# Create a targets file (one per line)
-echo "example.com
-api.example.com
-staging.example.com" > hosts.txt
+# Create targets file
+echo "api.yourdomain.com
+web.yourdomain.com
+auth.yourdomain.com" > targets.txt
 
 # Scan all targets
-tlsanalyzer --targets hosts.txt --format json -o results.json
-
-# Control concurrency (default: 10)
-tlsanalyzer --targets hosts.txt --concurrency 20
-
-# Generate summary report
-tlsanalyzer --targets hosts.txt --format html -o batch-report.html
+./tlsanalyzer --targets targets.txt --format html -o report.html
 ```
 
-### Skip Options
+### More Options
 
 ```bash
-# Skip vulnerability checks (faster scan)
-tlsanalyzer example.com --skip-vulns
-
-# Skip quantum assessment
-tlsanalyzer example.com --skip-quantum
-
-# Skip CNSA 2.0 analysis
-tlsanalyzer example.com --skip-cnsa2
+./tlsanalyzer yourdomain.com:8443                         # Custom port
+./tlsanalyzer 192.168.1.1 --sni yourdomain.com            # Custom SNI
+./tlsanalyzer yourdomain.com --timeout 60                 # Custom timeout
+./tlsanalyzer yourdomain.com --skip-vulns                 # Skip vulnerability checks
+./tlsanalyzer yourdomain.com --skip-quantum               # Skip quantum assessment
 ```
 
-## Output Formats
+## Example Output
 
-### Text Output
-
-Beautiful terminal output with color-coded results:
+Sample terminal output:
 
 ```
 ═══════════════════════════════════════════════════════════════
@@ -291,193 +187,19 @@ Beautiful terminal output with color-coded results:
       — Full PQC Transition (2035-01-01)
 ```
 
-### JSON Output
-
-Machine-readable output for automation and integration:
-
-```json
-{
-  "target": "example.com",
-  "host": "example.com",
-  "port": 443,
-  "ip": "93.184.216.34",
-  "grade": {
-    "letter": "B",
-    "score": 78,
-    "quantumGrade": "QV"
-  },
-  "quantumRisk": {
-    "score": 0,
-    "level": "CRITICAL",
-    "hybridPqcReady": false,
-    "fullPqcReady": false
-  },
-  "cnsa2Timeline": {
-    "currentPhase": "Preparation Phase",
-    "timelineScore": 54,
-    "daysToNextDeadline": 371,
-    "nextAction": "Enable hybrid PQC key exchange"
-  },
-  "policyResult": {
-    "policyName": "cnsa-2.0-2027",
-    "compliant": false,
-    "score": 10,
-    "violations": [...]
-  }
-}
-```
-
-### CycloneDX CBOM
-
-Cryptographic Bill of Materials for asset inventory and supply chain security:
-
-```json
-{
-  "bomFormat": "CycloneDX",
-  "specVersion": "1.6",
-  "serialNumber": "urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79",
-  "version": 1,
-  "metadata": {
-    "timestamp": "2025-01-15T10:30:00Z",
-    "tools": [{"vendor": "CSNP", "name": "qramm-tls-analyzer", "version": "0.2.0"}]
-  },
-  "components": [
-    {
-      "type": "cryptographic-asset",
-      "bom-ref": "protocol-example.com-TLS 1.3",
-      "name": "TLS 1.3",
-      "cryptoProperties": {
-        "assetType": "protocol",
-        "protocolProperties": {"type": "tls", "version": "TLS 1.3"}
-      }
-    },
-    {
-      "type": "cryptographic-asset",
-      "name": "TLS_AES_256_GCM_SHA384",
-      "cryptoProperties": {
-        "assetType": "algorithm",
-        "algorithmProperties": {
-          "primitive": "ae",
-          "mode": "gcm",
-          "classicalSecurityLevel": 256
-        }
-      }
-    }
-  ],
-  "services": [
-    {
-      "bom-ref": "service-example.com",
-      "name": "example.com",
-      "endpoints": ["https://example.com:443"]
-    }
-  ]
-}
-```
-
-### HTML Report
-
-Standalone HTML reports with embedded CSS for sharing with executives and stakeholders:
-
-- Executive summary with grade visualization
-- Quantum risk assessment with visual indicators
-- CNSA 2.0 timeline with milestone tracking
-- Detailed findings with remediation guidance
-- Dark theme, responsive design
-- No external dependencies (fully standalone)
+Other formats: `--format json` for automation, `--format cbom` for [CycloneDX CBOM](https://cyclonedx.org/capabilities/cbom/), `--format html` for shareable reports, `--format sarif` for GitHub Security.
 
 ## Policies
 
-### Built-in Policies
+| Policy | Description |
+|--------|-------------|
+| `modern` | Modern TLS configuration for 2024+ |
+| `strict` | Strict TLS 1.3-only configuration |
+| `cnsa-2.0-2027` | CNSA 2.0 for new NSS systems (2027 deadline) |
+| `cnsa-2.0-2030` | CNSA 2.0 with TLS 1.3 required |
+| `cnsa-2.0-2035` | CNSA 2.0 full PQC transition |
 
-| Policy | Description | Target Year |
-|--------|-------------|-------------|
-| `modern` | Modern TLS configuration for 2024+ | - |
-| `strict` | Strict TLS 1.3-only configuration | - |
-| `cnsa-2.0-2027` | CNSA 2.0 for new NSS systems | 2027 |
-| `cnsa-2.0-2030` | CNSA 2.0 with TLS 1.3 required | 2030 |
-| `cnsa-2.0-2035` | CNSA 2.0 full PQC transition | 2035 |
-
-```bash
-# List all available policies with descriptions
-tlsanalyzer policies
-
-Available Security Policies:
-─────────────────────────────────────────────────────────
-
-  modern
-    Modern TLS configuration for 2024+
-
-  strict
-    Strict TLS configuration with TLS 1.3 required
-
-  cnsa-2.0-2027
-    CNSA 2.0 compliance target for 2027 - new NSS systems
-    CNSA 2.0 Target: 2027
-
-  cnsa-2.0-2030
-    CNSA 2.0 compliance target for 2030 - TLS 1.3 required
-    CNSA 2.0 Target: 2030
-
-  cnsa-2.0-2035
-    CNSA 2.0 compliance target for 2035 - full PQC
-    CNSA 2.0 Target: 2035
-```
-
-### Custom Policies
-
-Create custom policies in YAML format:
-
-```yaml
-# my-organization-policy.yaml
-name: my-organization-policy
-version: "1.0"
-description: Custom security policy for my organization
-extends: modern  # Inherit from built-in policy
-
-rules:
-  protocol:
-    minVersion: TLS 1.3
-    requiredVersions:
-      - TLS 1.3
-    bannedVersions:
-      - TLS 1.0
-      - TLS 1.1
-      - TLS 1.2
-
-  cipher:
-    minKeySize: 256
-    requireForwardSecrecy: true
-    bannedAlgorithms:
-      - 3DES
-      - RC4
-      - MD5
-      - SHA1
-    bannedCipherSuites:
-      - TLS_RSA_WITH_AES_128_CBC_SHA
-
-  certificate:
-    minValidityDays: 30
-    minRsaKeySize: 3072
-    minEccKeySize: 384
-    bannedSignatureAlgorithms:
-      - SHA1
-      - MD5
-    allowSelfSigned: false
-
-  quantum:
-    requireHybridKeyExchange: true
-    minQuantumScore: 50
-    cnsa2TargetYear: 2027
-    requiredKeyExchangeAlgorithms:
-      - ML-KEM-768
-      - ML-KEM-1024
-```
-
-Use your custom policy:
-
-```bash
-tlsanalyzer example.com --policy-file my-organization-policy.yaml
-```
+Custom policies can be created in YAML format. See [docs/policies.md](docs/policies.md) for details.
 
 ## CNSA 2.0 Timeline
 
@@ -551,87 +273,9 @@ FLAGS:
   -h, --help              Help for tlsanalyzer
 ```
 
-## Integration
+## CI/CD Integration
 
-### CI/CD Integration
-
-**GitHub Actions:**
-```yaml
-name: TLS Security Scan
-
-on:
-  schedule:
-    - cron: '0 0 * * *'  # Daily
-  push:
-    branches: [main]
-
-jobs:
-  scan:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Install TLS Analyzer
-        run: go install github.com/csnp/qramm-tls-analyzer/cmd/tlsanalyzer@latest
-
-      - name: Scan Production
-        run: tlsanalyzer api.example.com --format sarif -o tls-results.sarif
-
-      - name: Upload SARIF
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: tls-results.sarif
-
-      - name: Check Policy Compliance
-        run: |
-          tlsanalyzer api.example.com --policy cnsa-2.0-2027 --format json | \
-            jq -e '.policyResult.compliant == true' || exit 1
-```
-
-**GitLab CI:**
-```yaml
-tls_security_scan:
-  image: golang:1.21
-  script:
-    - go install github.com/csnp/qramm-tls-analyzer/cmd/tlsanalyzer@latest
-    - tlsanalyzer $TARGET --format json -o tls-report.json
-    - tlsanalyzer $TARGET --policy $POLICY --format json | jq '.policyResult.compliant'
-  artifacts:
-    reports:
-      security: tls-report.json
-```
-
-### SBOM Integration
-
-Generate CycloneDX CBOM for integration with software bill of materials tools:
-
-```bash
-# Generate cryptographic BOM
-tlsanalyzer example.com --format cbom -o crypto-bom.json
-
-# Merge with existing SBOM using CycloneDX CLI
-cyclonedx merge --input-files sbom.json crypto-bom.json --output merged-sbom.json
-
-# Validate CBOM
-cyclonedx validate --input-file crypto-bom.json
-```
-
-### Automation with JSON
-
-```bash
-# Check if quantum vulnerable
-QUANTUM_LEVEL=$(tlsanalyzer example.com -f json | jq -r '.quantumRisk.level')
-if [ "$QUANTUM_LEVEL" = "CRITICAL" ]; then
-  echo "WARNING: Quantum vulnerable configuration detected"
-  exit 1
-fi
-
-# Get overall grade
-GRADE=$(tlsanalyzer example.com -f json | jq -r '.grade.letter')
-echo "TLS Grade: $GRADE"
-
-# Check policy compliance
-COMPLIANT=$(tlsanalyzer example.com --policy cnsa-2.0-2027 -f json | jq -r '.policyResult.compliant')
-echo "CNSA 2.0 Compliant: $COMPLIANT"
-```
+See [docs/ci-cd-integration.md](docs/ci-cd-integration.md) for GitHub Actions, GitLab CI, Jenkins, and Azure DevOps examples.
 
 ## Architecture
 
@@ -686,65 +330,9 @@ This analyzer is part of the QRAMM open-source toolkit:
 | **KeyRotate** | Key rotation automation framework |
 | **QRAMM CLI** | Assessment and planning command-line interface |
 
-## About CSNP
-
-The **Cyber Security Non-Profit (CSNP)** exists to democratize cybersecurity knowledge and make it accessible to everyone, regardless of background, resources, or technical expertise.
-
-**Our Mission:** We believe that security should not be a privilege but a right. Our mission is to empower individuals, families, businesses, and communities with the knowledge and tools they need to protect themselves in the digital world.
-
-**Our Vision:** We envision a world where everyone has access to the cybersecurity knowledge they need to participate safely and confidently in the digital society. Through free education, community building, and practical resources, we aim to create a more secure digital future for all.
-
-**Core Values:**
-- **Accessibility** - Cybersecurity knowledge should be available to everyone
-- **Community** - Building a global network of empowered security practitioners
-- **Transparency** - Open-source tools and freely available resources
-- **Practicality** - Real-world, actionable security guidance
-
-Visit [csnp.org](https://csnp.org) to learn more.
-
 ## Contributing
 
-We welcome contributions from the community! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
-
-### Development Setup
-
-```bash
-# Clone repository
-git clone https://github.com/csnp/qramm-tls-analyzer.git
-cd qramm-tls-analyzer
-
-# Install dependencies
-go mod download
-
-# Run tests
-go test ./... -v
-
-# Run tests with coverage
-go test ./... -coverprofile=coverage.out
-go tool cover -html=coverage.out
-
-# Build
-go build -o tlsanalyzer ./cmd/tlsanalyzer
-
-# Run linter
-go vet ./...
-```
-
-### Running Tests
-
-```bash
-# All tests
-go test ./...
-
-# With coverage
-go test ./... -cover
-
-# Specific package
-go test ./internal/analyzer/... -v
-
-# Short tests only
-go test ./... -short
-```
+See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup and guidelines.
 
 ## References
 

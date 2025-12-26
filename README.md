@@ -326,7 +326,6 @@ This analyzer is part of the QRAMM open-source toolkit:
 |------|-------------|
 | **TLS Analyzer** | TLS/SSL configuration analysis with quantum readiness (this tool) |
 | **CryptoScan** | Cryptographic discovery scanner for codebases |
-| **CryptoCBOM** | Cryptographic Bill of Materials generator |
 
 ## Contributing
 

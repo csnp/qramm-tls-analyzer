@@ -90,60 +90,64 @@ tlsanalyzer example.com --format cbom -o crypto-inventory.json
 
 ## Installation
 
-### macOS / Linux (Recommended)
+### Option 1: Download Binary (Easiest)
 
-Copy and paste this entire block into your terminal:
+Download the latest release for your platform from [**Releases**](https://github.com/csnp/qramm-tls-analyzer/releases):
+
+| Platform | File |
+|----------|------|
+| macOS (Apple Silicon) | `tlsanalyzer-darwin-arm64.tar.gz` |
+| macOS (Intel) | `tlsanalyzer-darwin-amd64.tar.gz` |
+| Linux | `tlsanalyzer-linux-amd64.tar.gz` |
+| Windows | `tlsanalyzer-windows-amd64.zip` |
+
+Then extract and run:
 
 ```bash
-# Download, build, and install (requires Go 1.21+)
+# macOS/Linux
+tar -xzf tlsanalyzer-*.tar.gz
+sudo mv tlsanalyzer /usr/local/bin/
+tlsanalyzer --version
+```
+
+### Option 2: Build from Source
+
+**Requires Go 1.21+** ([install Go](https://go.dev/dl/))
+
+Copy and paste this entire block:
+
+```bash
 git clone https://github.com/csnp/qramm-tls-analyzer.git
 cd qramm-tls-analyzer
 go build -o tlsanalyzer ./cmd/tlsanalyzer
 sudo mv tlsanalyzer /usr/local/bin/
 cd .. && rm -rf qramm-tls-analyzer
-```
-
-Verify it works:
-```bash
 tlsanalyzer --version
 ```
 
-### macOS / Linux (Alternative - No sudo)
-
-If you don't have sudo access:
+<details>
+<summary>Alternative: Install without sudo</summary>
 
 ```bash
 git clone https://github.com/csnp/qramm-tls-analyzer.git
 cd qramm-tls-analyzer
 go build -o tlsanalyzer ./cmd/tlsanalyzer
 mkdir -p ~/bin && mv tlsanalyzer ~/bin/
-echo 'export PATH="$HOME/bin:$PATH"' >> ~/.zshrc  # or ~/.bashrc for bash
+echo 'export PATH="$HOME/bin:$PATH"' >> ~/.zshrc
 source ~/.zshrc
 ```
+</details>
 
-### Windows
+<details>
+<summary>Windows (PowerShell)</summary>
 
 ```powershell
 git clone https://github.com/csnp/qramm-tls-analyzer.git
 cd qramm-tls-analyzer
 go build -o tlsanalyzer.exe ./cmd/tlsanalyzer
-# Move tlsanalyzer.exe to a folder in your PATH, or run from current directory
+# Move tlsanalyzer.exe to a folder in your PATH
 ```
-
-### Don't have Go installed?
-
-**macOS:** `brew install go`
-
-**Ubuntu/Debian:** `sudo apt install golang-go`
-
-**Windows:** Download from https://go.dev/dl/
-
-### Pre-built Binaries
-
-Download from [Releases](https://github.com/csnp/qramm-tls-analyzer/releases) for:
-- Linux (amd64, arm64)
-- macOS (amd64, arm64)
-- Windows (amd64)
+</details>
 
 ## Usage
 

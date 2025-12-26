@@ -41,7 +41,6 @@ var (
 	policyFile   string
 	targetsFile  string
 	concurrency  int
-	showPolicies bool
 )
 
 func main() {

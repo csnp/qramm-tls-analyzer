@@ -29,7 +29,7 @@ func TestNew(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			s := New(tt.config)
 			if s == nil {
-				t.Error("New returned nil")
+				t.Fatal("New returned nil")
 			}
 			if s.config == nil {
 				t.Error("Scanner config is nil")

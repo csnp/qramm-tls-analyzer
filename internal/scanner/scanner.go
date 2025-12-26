@@ -45,7 +45,7 @@ func DefaultConfig() *Config {
 		SkipCertVerify: true, // We're analyzing, not validating
 		CheckVulns:     true,
 		CheckQuantum:   true,
-		MinTLSVersion:  tls.VersionSSL30,
+		MinTLSVersion:  0x0300, // SSL 3.0 - needed to detect insecure configurations
 		MaxTLSVersion:  tls.VersionTLS13,
 	}
 }
@@ -441,7 +441,7 @@ func tlsVersionName(v uint16) string {
 		return "TLS 1.1"
 	case tls.VersionTLS10:
 		return "TLS 1.0"
-	case tls.VersionSSL30:
+	case 0x0300: // SSL 3.0
 		return "SSL 3.0"
 	default:
 		return fmt.Sprintf("0x%04X", v)

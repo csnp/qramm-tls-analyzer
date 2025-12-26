@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="https://qramm.org/images/qramm-logo.svg" alt="QRAMM Logo" width="200"/>
-</p>
-
 <h1 align="center">QRAMM TLS Analyzer</h1>
 
 <p align="center">
@@ -12,7 +8,7 @@
   <a href="https://github.com/csnp/qramm-tls-analyzer/actions"><img src="https://github.com/csnp/qramm-tls-analyzer/workflows/CI/badge.svg" alt="CI Status"></a>
   <a href="https://goreportcard.com/report/github.com/csnp/qramm-tls-analyzer"><img src="https://goreportcard.com/badge/github.com/csnp/qramm-tls-analyzer" alt="Go Report Card"></a>
   <a href="https://pkg.go.dev/github.com/csnp/qramm-tls-analyzer"><img src="https://pkg.go.dev/badge/github.com/csnp/qramm-tls-analyzer.svg" alt="Go Reference"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License"></a>
 </p>
 
 <p align="center">
@@ -722,7 +718,7 @@ go test ./... -short
 
 ## License
 
-This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 

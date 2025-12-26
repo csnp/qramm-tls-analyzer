@@ -325,7 +325,7 @@ This analyzer is part of the QRAMM open-source toolkit:
 | Tool | Description |
 |------|-------------|
 | **TLS Analyzer** | TLS/SSL configuration analysis with quantum readiness (this tool) |
-| **CryptoScan** | Cryptographic discovery scanner for codebases |
+| **[CryptoScan](https://github.com/csnp/qramm-cryptoscan)** | Cryptographic discovery scanner for codebases |
 
 ## Contributing
 

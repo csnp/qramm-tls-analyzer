@@ -168,7 +168,6 @@ func (s *Scanner) generateRecommendations(result *types.ScanResult) []types.Reco
 					"https://csrc.nist.gov/publications/detail/fips/204/final",
 				},
 			})
-			priority++
 		}
 	}
 

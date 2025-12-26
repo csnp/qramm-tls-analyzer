@@ -422,9 +422,10 @@ func parseKeyExchange(state tls.ConnectionState) *types.KeyExchange {
 		ke.Bits = 256
 		ke.QuantumSafe = false
 
-		// TODO: Detect hybrid PQC key exchanges
-		// This requires raw handshake access or extension parsing
-		// X25519MLKEM768 would be detectable by key share size (1216 bytes)
+		// Note: Hybrid PQC key exchange detection (e.g., X25519MLKEM768) requires
+		// raw handshake access or TLS extension parsing. Go's standard library
+		// doesn't expose this directly. Future versions may use custom TLS
+		// implementation or BoringSSL bindings for full PQC detection.
 	}
 
 	return ke

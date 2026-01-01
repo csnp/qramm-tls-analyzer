@@ -42,23 +42,33 @@ Part of the [QRAMM (Quantum Readiness Assurance Maturity Model)](https://qramm.o
 
 ## Quick Start
 
+### Option 1: Build from Source
+
+Requires Go 1.23+ ([install Go](https://go.dev/doc/install))
+
+Copy and paste this entire block:
+
 ```bash
-# Clone and build (requires Go 1.21+)
 git clone https://github.com/csnp/qramm-tls-analyzer.git
 cd qramm-tls-analyzer
 go build -o tlsanalyzer ./cmd/tlsanalyzer
-
-# Scan a domain you own or have permission to test
-./tlsanalyzer yourdomain.com
-
-# Expected output: Security grade, quantum risk score, CNSA 2.0 timeline
-# - TLS Security: A-F grade with score breakdown
-# - Quantum Ready: QV (vulnerable) to Q+ (full PQC)
-# - Protocol/cipher/certificate analysis
-# - Remediation guidance
+sudo mv tlsanalyzer /usr/local/bin/
+cd ..
+tlsanalyzer --version
 ```
 
-**Don't have Go?** Download pre-built binaries from [Releases](https://github.com/csnp/qramm-tls-analyzer/releases).
+### Option 2: Download Binary
+
+Download pre-built binaries from [Releases](https://github.com/csnp/qramm-tls-analyzer/releases).
+
+### Run Your First Scan
+
+```bash
+# Scan a domain you own or have permission to test
+tlsanalyzer yourdomain.com
+```
+
+Expected output: Security grade, quantum risk score, CNSA 2.0 timeline.
 
 ## Features
 

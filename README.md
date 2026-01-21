@@ -54,7 +54,7 @@ cd qramm-tls-analyzer
 go build -o tlsanalyzer ./cmd/tlsanalyzer
 sudo mv tlsanalyzer /usr/local/bin/
 cd ..
-tlsanalyzer --version
+tlsanalyzer version
 ```
 
 ### Option 2: Download Binary
